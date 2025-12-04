@@ -3,6 +3,7 @@ const fromText = document.querySelector("#fromText");
 const toText = document.querySelector("#toText");
 const translateBtn = document.querySelector("#translateBtn");
 const clearBtn = document.querySelector("#clearBtn");
+const copyBtn = document.querySelector("#copyBtn");
 const languageContainer = document.querySelector("#language-container");
 const languageOption = document.querySelector(".target-language");
 const languageSelect = document.querySelector("#languageSelect");
@@ -41,7 +42,18 @@ clearBtn.addEventListener('click', () => {
   toText.value = "";
   selectedLanguages = [];
   languageContainer.innerHTML = "";
-})
+});
+
+copyBtn.addEventListener('click', () => {
+  navigator.clipboard.writeText(toText.value);
+
+  copyBtn.innerHTML = "Copied!"
+  copyBtn.className  = "primary"
+  setTimeout(() => {
+    copyBtn.innerHTML = "Copy";
+    copyBtn.className = "secondary"
+  }, 1000)
+});
 
 translateBtn.addEventListener("click", async () => {
   errorMessage.innerHTML = "Loading...";

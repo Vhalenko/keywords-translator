@@ -108,12 +108,12 @@ button {
   font-weight: 600;
 }
 
-#translateBtn {
+button.primary {
   background-color: #2ecc71;
   color: #fff;
 }
 
-#translateBtn:hover {
+button.primary:hover {
   background-color: #27ae60;
 }
 
