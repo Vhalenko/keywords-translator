@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Keyword Translator</h1>
+      <label for="fromText">Keywords (comma-separated)</label>
+      <p class="error-message"></p>
+      <textarea
+        id="fromText"
+        placeholder="apple, banana, orange, sun"
+      ></textarea>
+      <textarea id="toText" placeholder="Translation"></textarea>
+
+      <label>Add target language</label>
+      <select
+        id="languageSelect"
+        style="
+          padding: 6px;
+          border-radius: 6px;
+          border: 1px solid #ddd;
+          margin-bottom: 10px;
+        "
+      >
+        <option value="" disabled selected>Select a language…</option>
+      </select>
+
+      <div
+        id="language-container"
+        class="languages"
+        style="margin-bottom: 10px"
+      ></div>
+
+      <div class="controls">
+        <div style="display: flex; gap: 8px; align-items: center">
+          <div style="display: flex; gap: 8px; align-items: center">
+            <button id="translateBtn">Translate</button>
+            <button class="secondary" id="clearBtn">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/countries.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
