@@ -2,6 +2,7 @@ const selectTag = document.querySelectorAll("select");
 const fromText = document.querySelector("#fromText");
 const toText = document.querySelector("#toText");
 const translateBtn = document.querySelector("#translateBtn");
+const clearBtn = document.querySelector("#clearBtn");
 const languageContainer = document.querySelector("#language-container");
 const languageOption = document.querySelector(".target-language");
 const languageSelect = document.querySelector("#languageSelect");
@@ -34,6 +35,13 @@ languageSelect.addEventListener("change", () => {
     `<p class="language" data-code="${code}">${lang}</p>`
   );
 });
+
+clearBtn.addEventListener('click', () => {
+  fromText.value = "";
+  toText.value = "";
+  selectedLanguages = [];
+  languageContainer.innerHTML = "";
+})
 
 translateBtn.addEventListener("click", async () => {
   errorMessage.innerHTML = "Loading...";
