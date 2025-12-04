@@ -60,32 +60,27 @@ translateBtn.addEventListener("click", async () => {
 
   const text = fromText.value.trim();
   const keywords = text.split(", ");
-  const translationsByLanguage = {};
+  /* const translationsByLanguage = {};
 
   for (const code of selectedLanguages) {
-    const apiUrl = `https://api.mymemory.translated.net/get?q=${text}&langpair=en|${code}`;
+    const apiUrl = `https://api.mymemory.translated.net/get?q=${text}&langpair=en|${code}&de=galenko.vladislav@gmail.com`;
     const translatedSentence = await translate(apiUrl);
     translationsByLanguage[code] = translatedSentence.split(", ");
   }
-
-  console.log(translationsByLanguage);
 
   const finalList = [];
   for (let i = 0; i < keywords.length; i++) {
     for (const code of selectedLanguages) {
       finalList.push(translationsByLanguage[code][i]);
     }
-  }
+  } */
 
-  console.log(finalList);
-
-  const uniqueFinalList = finalList.filter(
+  const uniqueFinalList = keywords.filter(
     (item, index) =>
-      finalList.findIndex((x) => x === item) ===
+      keywords.findIndex((x) => x === item) ===
       index
   );
 
-  console.log(uniqueFinalList);
   errorMessage.innerHTML = "";
   toText.value = uniqueFinalList.join(", ");
 });
