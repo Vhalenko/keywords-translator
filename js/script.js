@@ -37,29 +37,35 @@ languageSelect.addEventListener("change", () => {
   );
 });
 
-clearBtn.addEventListener('click', () => {
+clearBtn.addEventListener("click", () => {
   fromText.value = "";
   toText.value = "";
   selectedLanguages = [];
   languageContainer.innerHTML = "";
 });
 
-copyBtn.addEventListener('click', () => {
+copyBtn.addEventListener("click", () => {
   navigator.clipboard.writeText(toText.value);
 
-  copyBtn.innerHTML = "Copied!"
-  copyBtn.className  = "primary"
+  copyBtn.innerHTML = "Copied!";
+  copyBtn.className = "primary";
   setTimeout(() => {
     copyBtn.innerHTML = "Copy";
-    copyBtn.className = "secondary"
-  }, 1000)
+    copyBtn.className = "secondary";
+  }, 1000);
 });
 
 translateBtn.addEventListener("click", async () => {
   errorMessage.innerHTML = "Loading...";
 
-  const text = fromText.value.trim();
-  const keywords = text.split(", ");
+  let text = fromText.value.trim();
+  const keywords = text.split(", ").map((w) => w.trim().toLowerCase());
+
+  text = toText.value.trim();
+  const exclude = text.split(", ").map((w) => w.trim().toLowerCase());
+
+  const filtered = keywords.filter((word) => !exclude.includes(word));
+
   /* const translationsByLanguage = {};
 
   for (const code of selectedLanguages) {
@@ -73,16 +79,14 @@ translateBtn.addEventListener("click", async () => {
     for (const code of selectedLanguages) {
       finalList.push(translationsByLanguage[code][i]);
     }
-  } */
+  } 
 
   const uniqueFinalList = keywords.filter(
-    (item, index) =>
-      keywords.findIndex((x) => x === item) ===
-      index
-  );
+    (item, index) => keywords.findIndex((x) => x === item) === index
+  ); */
 
   errorMessage.innerHTML = "";
-  toText.value = uniqueFinalList.join(", ");
+  toText.value = filtered.join(", ");
 });
 
 async function translate(apiUrl) {
@@ -92,7 +96,7 @@ async function translate(apiUrl) {
     const data = await response.json();
     return data?.responseData?.translatedText || "[translation unavailable]";
   } catch (err) {
-    errorMessage.innerHTML = "Translation error:", err;
+    (errorMessage.innerHTML = "Translation error:"), err;
     return "[translation unavailable]";
   }
 }
