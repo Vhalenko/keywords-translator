@@ -67,7 +67,7 @@ translateBtn.addEventListener("click", async () => {
     const apiUrl = `https://api.mymemory.translated.net/get?q=${text}&langpair=en|${code}&de=galenko.vladislav@gmail.com`;
     const translatedSentence = await translate(apiUrl);
 
-    translationsByLanguage[code] = translatedSentence.split(/،\s*|,\s*|、/);
+    translationsByLanguage[code] = translatedSentence.split(/،\s*|,\s*|、\s+/);
   }
   console.log(translationsByLanguage);
 
