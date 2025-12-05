@@ -67,7 +67,7 @@ translateBtn.addEventListener("click", async () => {
     const apiUrl = `https://api.mymemory.translated.net/get?q=${text}&langpair=en|${code}&de=galenko.vladislav@gmail.com`;
     const translatedSentence = await translate(apiUrl);
 
-    translationsByLanguage[code] = translatedSentence.split(/, |、| و/);
+    translationsByLanguage[code] = translatedSentence.split(/،\s*|,\s*|、/);
   }
   console.log(translationsByLanguage);
 
@@ -87,7 +87,7 @@ translateBtn.addEventListener("click", async () => {
   const result = uniqueFinalList.filter(item => !keywords.includes(item));
 
   errorMessage.innerHTML = "";
-  toText.value = uniqueFinalList.join(", ");
+  toText.value = result.join(", ");
 });
 
 async function translate(apiUrl) {
