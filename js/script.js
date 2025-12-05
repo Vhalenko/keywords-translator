@@ -37,56 +37,57 @@ languageSelect.addEventListener("change", () => {
   );
 });
 
-clearBtn.addEventListener("click", () => {
+clearBtn.addEventListener('click', () => {
   fromText.value = "";
   toText.value = "";
   selectedLanguages = [];
   languageContainer.innerHTML = "";
 });
 
-copyBtn.addEventListener("click", () => {
+copyBtn.addEventListener('click', () => {
   navigator.clipboard.writeText(toText.value);
 
-  copyBtn.innerHTML = "Copied!";
-  copyBtn.className = "primary";
+  copyBtn.innerHTML = "Copied!"
+  copyBtn.className  = "primary"
   setTimeout(() => {
     copyBtn.innerHTML = "Copy";
-    copyBtn.className = "secondary";
-  }, 1000);
+    copyBtn.className = "secondary"
+  }, 1000)
 });
 
 translateBtn.addEventListener("click", async () => {
   errorMessage.innerHTML = "Loading...";
 
-  let text = fromText.value.trim();
-  const keywords = text.split(", ").map((w) => w.trim().toLowerCase());
-
-  text = toText.value.trim();
-  const exclude = text.split(", ").map((w) => w.trim().toLowerCase());
-
-  const filtered = keywords.filter((word) => !exclude.includes(word));
-
-  /* const translationsByLanguage = {};
+  const text = fromText.value.trim();
+  const keywords = text.split(", ");
+  
+  const translationsByLanguage = {};
 
   for (const code of selectedLanguages) {
     const apiUrl = `https://api.mymemory.translated.net/get?q=${text}&langpair=en|${code}&de=galenko.vladislav@gmail.com`;
     const translatedSentence = await translate(apiUrl);
-    translationsByLanguage[code] = translatedSentence.split(", ");
+
+    translationsByLanguage[code] = translatedSentence.split(/, |、| و/);
   }
+  console.log(translationsByLanguage);
 
   const finalList = [];
   for (let i = 0; i < keywords.length; i++) {
     for (const code of selectedLanguages) {
       finalList.push(translationsByLanguage[code][i]);
     }
-  } 
+  }
 
-  const uniqueFinalList = keywords.filter(
-    (item, index) => keywords.findIndex((x) => x === item) === index
-  ); */
+  const uniqueFinalList = finalList.filter(
+    (item, index) =>
+      finalList.findIndex((x) => x === item) ===
+      index
+  );
+
+  const result = uniqueFinalList.filter(item => !keywords.includes(item));
 
   errorMessage.innerHTML = "";
-  toText.value = filtered.join(", ");
+  toText.value = uniqueFinalList.join(", ");
 });
 
 async function translate(apiUrl) {
@@ -96,7 +97,7 @@ async function translate(apiUrl) {
     const data = await response.json();
     return data?.responseData?.translatedText || "[translation unavailable]";
   } catch (err) {
-    (errorMessage.innerHTML = "Translation error:"), err;
+    errorMessage.innerHTML = "Translation error:", err;
     return "[translation unavailable]";
   }
 }
